@@ -1,0 +1,218 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Cursed Timer ULiL', sans-serif;
+}
+
+/* --- tambahan minimal: beri jarak dari tepi layar --- */
+body {
+    background: #0f172a;
+    padding: 2rem 1rem;
+}
+
+/* --- tambahan: form nama tim --- */
+#team-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 575px;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #1B244A;
+    border-radius: 12px;
+}
+
+#team-form input {
+    flex: 1 1 160px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #9AABD8;
+    border-radius: 6px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+#team-form button {
+    padding: 0.5rem 1rem;
+    background: #F94F6D;
+    color: #ffffff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+}
+
+.main-sec{
+    display: flex;
+    justify-content: space-between;
+    
+    width: 575px;
+
+    background-color: #1B244A;
+    padding: 68px 85px;
+
+    /* --- tambahan minimal: biar rapi --- */
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+.board-title{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 35.89px;
+    color: #EEEEEE;
+
+    margin-bottom: 21px;
+}
+
+.board-sec{
+    width: 155px;
+
+    /* --- tambahan minimal: biar highlight rapi --- */
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: outline 0.2s, box-shadow 0.2s;
+}
+
+/* --- tambahan: highlight pemimpin skor --- */
+.board-sec.is-leading {
+    outline: 3px solid #F94F6D;
+    outline-offset: 4px;
+    box-shadow: 0 0 20px rgba(249, 79, 109, 0.45);
+}
+
+.points{
+    font-size: 90px;
+    font-weight: 400;
+    line-height: 126.67px;
+    color: #F94F6D;
+    background-color: #080001;
+
+    margin-bottom: 26px;
+
+    /* --- tambahan minimal: biar rapi --- */
+    border-radius: 8px;
+}
+
+.add-btn{
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid #9AABD8;
+
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27.81px;
+    color: #9AABD8;
+
+    /* --- tambahan minimal: interaksi --- */
+    cursor: pointer;
+    margin: 0 2px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.add-btn:hover {
+    background: #9AABD8;
+    color: #1B244A;
+}
+
+/* --- tambahan: controls (Save / New Game) --- */
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.controls button {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #9AABD8;
+    background: transparent;
+    color: #9AABD8;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+}
+
+.controls button:hover {
+    background: #9AABD8;
+    color: #1B244A;
+}
+
+#reset-btn {
+    border-color: #F94F6D;
+    color: #F94F6D;
+}
+
+#reset-btn:hover {
+    background: #F94F6D;
+    color: #ffffff;
+}
+
+/* --- tambahan: history --- */
+h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #EEEEEE;
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+}
+
+#history-list {
+    max-width: 400px;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 2rem;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.4rem;
+    background: #1B244A;
+    color: #EEEEEE;
+    border-left: 4px solid #F94F6D;
+    border-radius: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.95rem;
+}
+
+.remove-btn {
+    background: transparent;
+    border: 0;
+    color: #F94F6D;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.15rem 0.4rem;
+}
+
+.remove-btn:hover {
+    color: #ffffff;
+}
+
+/* --- tambahan: responsive minimal --- */
+@media (max-width: 640px) {
+    .main-sec {
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+
+    .board-sec {
+        width: 100%;
+    }
+
+    .points {
+        font-size: 72px;
+        line-height: 96px;
+    }
+}

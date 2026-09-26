@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basketball Scoreboard — DOM Exercise</title>
+  <link rel="stylesheet" href="dom-exercise.css">
+  <link href="https://fonts.cdnfonts.com/css/cursed-timer-ulil" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Team name form (tests preventDefault) -->
+  <form id="team-form">
+    <input type="text" id="home-name" placeholder="Home team" value="HOME">
+    <input type="text" id="guest-name" placeholder="Guest team" value="GUEST">
+    <button type="submit">Set Names</button>
+  </form>
+
+  <div class="main-sec">
+    <div class="board-sec" id="home-board">
+      <h1 class="board-title" id="home-title">HOME</h1>
+      <h2 class="points" id="home-count">0</h2>
+      <button class="add-btn" data-team="home" data-points="1">+1</button>
+      <button class="add-btn" data-team="home" data-points="2">+2</button>
+      <button class="add-btn" data-team="home" data-points="3">+3</button>
+    </div>
+
+    <div class="board-sec" id="guest-board">
+      <h1 class="board-title" id="guest-title">GUEST</h1>
+      <h2 class="points" id="guest-count">0</h2>
+      <button class="add-btn" data-team="guest" data-points="1">+1</button>
+      <button class="add-btn" data-team="guest" data-points="2">+2</button>
+      <button class="add-btn" data-team="guest" data-points="3">+3</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="save-btn">Save Score</button>
+    <button id="reset-btn">New Game</button>
+  </div>
+
+  <h2>History</h2>
+  <ul id="history-list"></ul>
+
+  <script src="dom-exercise.js"></script>
+</body>
+</html>
