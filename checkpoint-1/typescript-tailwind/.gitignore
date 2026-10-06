@@ -1,14 +1,12 @@
 ### Dependencies
 node_modules/
 
-### Framework and build output
-.next/
-out/
+### Build output
 dist/
 build/
 coverage/
-/.turbo/
-/.cache/
+.next/
+out/
 
 ### Environment files
 .env
