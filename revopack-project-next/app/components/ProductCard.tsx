@@ -2,20 +2,12 @@
 
 import { useState } from "react";
 import Card from "./Card";
-
-/* ============================================
-   TYPES
-   ============================================ */
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  stock: number;
-  category: string;
-}
+import type { Product } from "@/lib/types";
+import Link from "next/link";
 
 export interface ProductCardProps {
   product: Product;
+  categoryName?: string;
   onAddToCart?: (product: Product, qty: number) => void;
   showCounter?: boolean;
 }
@@ -36,6 +28,7 @@ export function getButtonClasses(inStock: boolean): string {
    ============================================ */
 export default function ProductCard({
   product,
+  categoryName,
   onAddToCart,
   showCounter = true,
 }: ProductCardProps) {
@@ -56,11 +49,15 @@ export default function ProductCard({
   return (
     <Card>
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="text-base font-bold text-slate-900 leading-snug">
-          {product.name}
-        </h3>
+        <Link
+          href={`/products/${product.id}`}
+          className="text-base font-bold text-slate-900 leading-snug
+                     hover:text-indigo-600 transition-colors"
+        >
+        {product.name}
+        </Link>
         <span className="text-[0.7rem] font-medium text-slate-500 capitalize">
-          {product.category}
+          {categoryName ?? `Cat #${product.category_id}`}
         </span>
       </div>
 
@@ -104,13 +101,25 @@ export default function ProductCard({
         </div>
       )}
 
-      <button
-        onClick={handleAddToCart}
-        disabled={!inStock}
-        className={getButtonClasses(inStock)}
-      >
-        {inStock ? "Add to Cart" : "Stok Habis"}
-      </button>
+      <div className="flex flex-col gap-2">
+        <Link
+          href ={`/products/${product.id}`}
+          className="w-full rounded-lg py-2 text-sm font-semibold
+                     text-center border border-slate-300
+                     text-slate-700 hover:bg-slate-50 hover:border-slate-400
+                     transition"
+        >
+          View Details  
+        </Link>
+
+        <button
+          onClick={handleAddToCart}
+          disabled={!inStock}
+          className={getButtonClasses(inStock)}
+        >
+          {inStock ? "Add to Cart" : "Stok Habis"}
+        </button>
+      </div>
     </Card>
   );
 }

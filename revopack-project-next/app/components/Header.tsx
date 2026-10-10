@@ -2,77 +2,74 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  // const searchParams = useSearchParams();
+  // const currentCategory = searchParams.get("category");
 
   const navLinks = [
-    { href: "/", label: "All" },
-    { href: "/products?category=backpack", label: "Backpack" },
-    { href: "/products?category=pouch", label: "Pouch" },
-    { href: "/products?category=totebag", label: "Totebag" },
-    { href: "/products?category=crossbody", label: "Cross Body" },
+    // { href: "/products", label: "All", category: null },
+    // { href: "/products?category_id=1", label: "Backpack", category: "backpack" },
+    // { href: "/products?category_id=2", label: "Pouch", category: "pouch" },
+    // { href: "/products?category_id=3", label: "Totebag", category: "totebag" },
+    // { href: "/products?category_id=4", label: "Cross Body", category: "crossbody" },
+    { href: "/", label: "HOME" },
+    { href: "/products", label: "PRODUCTS" },
+    { href: "/categories", label: "CATEGORIES" },
+    { href: "/orders", label: "ORDERS" },
   ];
+
+  function isActive(href: string) : boolean{
+    if(href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href+"/");
+  }
 
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-
-        {/* ============================================
-            BARIS ATAS: Logo | Nav Desktop | Actions
-            ============================================ */}
         <div className="py-3 sm:py-4 flex items-center justify-between gap-4">
-
-          {/* LOGO */}
           <Link href="/" className="text-xl sm:text-2xl font-extrabold shrink-0">
             Revo<span className="text-indigo-600">Pack</span>
           </Link>
 
-          {/* NAV DESKTOP — sembunyi di mobile */}
+          {/* NAV DESKTOP dengan active state */}
           <nav className="hidden md:flex gap-6 text-sm font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="hover:text-indigo-600 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={
+                    active
+                      ? "px-4 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-semibold"
+                      : "px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                  }
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* ACTIONS: Search | Cart | Login | Hamburger */}
           <div className="flex items-center gap-1 shrink-0">
-
-            {/* Search */}
-            <button
-              type="button"
-              aria-label="Search"
-              className="w-10 h-10 rounded-lg hover:bg-slate-100
-                         flex items-center justify-center transition text-lg"
-            >
-              🔍
-            </button>
-
-            {/* Cart */}
             <Link
               href="/cart"
-              aria-label="Cart"
               className="relative w-10 h-10 rounded-lg hover:bg-slate-100
                          flex items-center justify-center transition text-lg"
             >
               🛒
-              <span
-                className="absolute top-1 right-1 min-w-4.5 h-4.5 px-1
-                           bg-red-500 text-white text-[0.7rem] font-bold
-                           rounded-full flex items-center justify-center
-                           leading-none"
-              >
+              <span className="absolute top-1 right-1 min-w-4.5 h-4.5 px-1
+                               bg-red-500 text-white text-[0.7rem] font-bold
+                               rounded-full flex items-center justify-center
+                               leading-none">
                 0
               </span>
             </Link>
 
-            {/* Login — sembunyi di mobile kecil */}
             <Link
               href="/login"
               className="hidden sm:inline-flex items-center
@@ -83,7 +80,6 @@ export default function Header() {
               Login
             </Link>
 
-            {/* Hamburger — hanya mobile */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
@@ -92,52 +88,42 @@ export default function Header() {
               className="md:hidden inline-flex items-center justify-center
                          w-10 h-10 rounded-lg hover:bg-slate-100 transition"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
         </div>
 
-        {/* ============================================
-            NAV MOBILE — muncul saat isOpen
-            ============================================ */}
+        {/* NAV MOBILE */}
         {isOpen && (
           <nav className="md:hidden pb-4 border-t border-slate-200 pt-3">
             <ul className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block px-3 py-2 rounded-lg text-sm font-medium
-                               hover:bg-slate-100 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={
+                        active
+                          ? "block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-semibold"
+                          : "block px-3 py-2 rounded-lg tex-slate-700 hover:bg-slate-100"
+                      }
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
 
-              {/* Login di mobile menu */}
               <li className="sm:hidden pt-2 border-t border-slate-200 mt-2">
                 <Link
                   href="/login"

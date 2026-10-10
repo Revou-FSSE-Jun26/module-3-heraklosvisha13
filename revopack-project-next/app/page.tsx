@@ -1,69 +1,66 @@
-"use client";
+import Link from "next/link";
+import { getProducts, getCategories } from "@/lib/api";
+import ProductCard from "./components/ProductCard";
 
-import { useState } from "react";
-import ProductCard, { Product } from "./components/ProductCard";
-import SearchBar from "./components/SearchBar";
-import AddProductForm from "./components/AddProductForm";
+export const metadata = {
+  title: "RevoShop — Quality Bags for Every Journey",
+  description: "Browse our collection of quality bags.",
+};
 
-const INITIAL_PRODUCTS: Product[] = [
-  { id: 1, name: "Urban Backpack",     price: 350000, stock: 12, category: "backpack" },
-  { id: 2, name: "Mini Pouch",         price: 85000,  stock: 30, category: "pouch" },
-  { id: 3, name: "Canvas Totebag",     price: 130000, stock: 0,  category: "totebag" },
-  { id: 4, name: "Leather Cross Body", price: 420000, stock: 5,  category: "crossbody" },
-  { id: 5, name: "Travel Backpack",    price: 550000, stock: 3,  category: "backpack" },
-  { id: 6, name: "Everyday Totebag",   price: 145000, stock: 18, category: "totebag" },
-];
+export default async function Home() {
+  // Fetch products + categories sekaligus (parallel)
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories(),
+  ]);
 
-export default function Home() {
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
-  const [query, setQuery] = useState("");
+  const featured = products.slice(0, 6);
 
-  const filtered = products.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase())
+  // Map category_id → category_name
+  const categoryMap = new Map(
+    categories.map((c) => [c.id, c.category_name])
   );
-
-  function handleAddProduct(data: Omit<Product, "id">) {
-    const newProduct: Product = { id: Date.now(), ...data };
-    setProducts([...products, newProduct]);
-  }
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-extrabold mb-6">Products</h1>
+      {/* Hero */}
+      <section className="text-center max-w-2xl mx-auto mb-12">
+        <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
+          Welcome to RevoShop
+        </h1>
+        <p className="text-lg text-slate-600 mb-8">
+          Quality bags for every journey. Browse our collection.
+        </p>
+        <Link
+          href="/products"
+          className="inline-block bg-indigo-600 text-white px-6 py-3
+                     rounded-lg hover:bg-indigo-700 transition font-semibold"
+        >
+          Lihat Semua Produk
+        </Link>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
-        {/* KIRI: Search + Produk */}
-        <div>
-          <div className="mb-6">
-            <SearchBar value={query} onChange={setQuery} />
-          </div>
-
-          <p className="text-sm text-slate-500 mb-4">
-            Showing {filtered.length} of {products.length} products
-          </p>
-
-          {filtered.length === 0 ? (
-            <p className="text-center text-slate-500 py-12">
-              No products match "{query}"
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {filtered.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
+      <section>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Featured Products</h2>
+          {/* <Link
+            href="/products"
+            className="text-sm font-semibold text-indigo-600 hover:underline"
+          >
+            Lihat semua →
+          </Link> */}
         </div>
 
-        {/* KANAN: Form */}
-        <aside>
-          <div className="bg-white rounded-xl border border-slate-200 p-5
-                          sticky top-24">
-            <h2 className="text-lg font-bold mb-4">Add Product</h2>
-            <AddProductForm onAdd={handleAddProduct} />
-          </div>
-        </aside>
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featured.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              categoryName={categoryMap.get(product.category_id)}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
