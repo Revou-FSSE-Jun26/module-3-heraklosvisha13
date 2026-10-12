@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
-  title: "RevoShop — Quality Bags for Every Journey",
+  title: "RevoPack — Quality Bags for Every Journey",
   description: "Browse our collection of backpacks, pouches, totes, and cross body bags.",
 };
 

@@ -1,18 +1,14 @@
-# Module 3 Frontend — RevoShop
+# Module 3 Frontend — RevoPack
 
 ## Project Overview
 
-This repository collects the frontend work for the RevoU Full Stack Software
-Engineering course, Module 3. It is organized into two parts:
+This repository contains the main project for the RevoU Full Stack Software
+Engineering course, Module 3: **`revopack-project-next/`** — a RevoShop
+storefront built with Next.js (App Router), React, TypeScript, and Tailwind CSS.
+It fetches live data from a REST API for products, categories, and orders.
 
-- **`checkpoint-1/typescript-tailwind/`** — an early product catalog built with
-  plain TypeScript and Tailwind CSS, bundled as a static page.
-- **`revopack-project-next/`** — the main project: a RevoShop storefront built
-  with Next.js (App Router), React, TypeScript, and Tailwind CSS. It fetches
-  live data from a REST API for products, categories, and orders.
-
-Both share the RevoPack / RevoShop bag-store theme: backpacks, pouches, totes,
-and crossbody bags.
+The project follows the RevoPack / RevoShop bag-store theme: backpacks, pouches,
+totes, and crossbody bags.
 
 ## Folder Structure
 
@@ -20,32 +16,62 @@ and crossbody bags.
 .
 ├── README.md
 ├── .gitignore
-├── checkpoint-1/
-│   └── typescript-tailwind/        # Static TypeScript + Tailwind catalog
-│       ├── dist/                   # Build output (generated)
-│       └── node_modules/           # Dependencies (generated)
-├── revopack-project-next/          # Main Next.js storefront
+├── revopack-project-next/              # Next.js storefront
 │   ├── app/
-│   │   ├── layout.tsx              # Root layout (Header + Footer)
-│   │   ├── page.tsx                # Home / featured products
-│   │   ├── globals.css
-│   │   ├── components/             # Header, Footer, Card, ProductCard,
-│   │   │                           #   SearchBar, AddProductForm
-│   │   ├── products/               # Product list, filter, detail route
-│   │   │   └── [id]/               # Dynamic product detail page
-│   │   ├── categories/             # Category grid
-│   │   └── orders/                 # Order history
+│   │   ├── layout.tsx                  # Root layout (Header + Footer)
+│   │   ├── page.tsx                    # Home / featured products
+│   │   ├── globals.css                 # Global styles / Tailwind
+│   │   ├── favicon.ico
+│   │   ├── components/                 # Shared UI components
+│   │   │   ├── AddProductForm.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── ProductCard.tsx
+│   │   │   └── SearchBar.tsx
+│   │   ├── products/                   # Product list, filter, detail route
+│   │   │   ├── CategoryFilter.tsx
+│   │   │   ├── ProductList.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── loading.tsx
+│   │   │   ├── error.tsx
+│   │   │   └── [id]/                    # Dynamic product detail page
+│   │   │       ├── page.tsx
+│   │   │       └── loading.tsx
+│   │   ├── categories/                 # Category grid
+│   │   │   ├── page.tsx
+│   │   │   ├── loading.tsx
+│   │   │   └── error.tsx
+│   │   └── orders/                     # Order history
+│   │       ├── page.tsx
+│   │       ├── loading.tsx
+│   │       └── error.tsx
 │   ├── lib/
-│   │   ├── api.ts                  # Typed fetch helpers for the REST API
-│   │   └── types.ts               # Shared domain types
-│   └── .env.local                 # NEXT_PUBLIC_API_BASE_URL
-└── screenshots/
+│   │   ├── api.ts                      # Typed fetch helpers for the REST API
+│   │   └── types.ts                    # Shared domain types
+│   ├── public/                         # Static assets (svg icons)
+│   │   ├── file.svg
+│   │   ├── globe.svg
+│   │   ├── next.svg
+│   │   ├── vercel.svg
+│   │   └── window.svg
+│   ├── .env.local                      # NEXT_PUBLIC_API_BASE_URL
+│   ├── next.config.ts                  # Next.js configuration
+│   ├── next-env.d.ts                   # Next.js TypeScript declarations
+│   ├── tsconfig.json                   # TypeScript configuration
+│   ├── eslint.config.mjs               # ESLint configuration
+│   ├── postcss.config.mjs              # PostCSS / Tailwind configuration
+│   ├── package.json                    # Dependencies and scripts
+│   ├── package-lock.json
+│   └── README.md
+└── screenshots/                        # Screenshots used in this README
 ```
 
-The `dist/` and `node_modules/` folders are generated and excluded from version
+The `.next/` and `node_modules/` folders are generated and excluded from version
 control.
 
-## Main Project — RevoShop (Next.js)
+## RevoShop (Next.js)
 
 A server-rendered storefront that reads products, categories, and orders from a
 hosted REST API.
@@ -76,6 +102,14 @@ hosted REST API.
 - Per-route `loading.tsx` and `error.tsx` for loading and error states.
 - Prices formatted as Indonesian Rupiah with `Intl.NumberFormat`.
 
+### Data Layer
+
+`lib/api.ts` provides typed fetch helpers (`getProducts`, `getProduct`,
+`getCategories`, `getOrders`, `getOrder`). The API wraps responses in a
+`{ data, status }` envelope; `apiFetch` unwraps it and returns the typed `data`.
+Shared domain types (`Product`, `Category`, `Order`, `OrderItem`, `User`) live in
+`lib/types.ts`.
+
 ### Getting Started
 
 The app expects an API base URL. Create `revopack-project-next/.env.local`:
@@ -103,30 +137,6 @@ npm run build   # Production build
 npm run start   # Serve the production build
 npm run lint    # Run ESLint
 ```
-
-The API wraps responses in a `{ data, status }` envelope; `lib/api.ts` unwraps
-it and returns the typed `data` for products, categories, and orders.
-
-## Checkpoint 1 — TypeScript + Tailwind Catalog
-
-An earlier, static version of the product catalog built without a framework.
-
-- Typed product data with category, price, rating, and stock.
-- Search products by name or category, with an empty-results state.
-- Stock status labels and disabled add-to-cart controls for out-of-stock items.
-- Add-to-cart behavior with a live cart-item count.
-- Responsive layout styled with Tailwind CSS.
-
-From the checkpoint directory, install dependencies and build:
-
-```sh
-cd checkpoint-1/typescript-tailwind
-npm install
-npm run build
-```
-
-Then open `index.html` in a browser. The build creates `dist/output.css` and
-`dist/main.js`.
 
 ## Screenshots
 

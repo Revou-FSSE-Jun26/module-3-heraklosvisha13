@@ -3,7 +3,7 @@ import { getProducts, getCategories } from "@/lib/api";
 import ProductCard from "./components/ProductCard";
 
 export const metadata = {
-  title: "RevoShop — Quality Bags for Every Journey",
+  title: "RevoPack — Quality Bags for Every Journey",
   description: "Browse our collection of quality bags.",
 };
 
@@ -26,7 +26,7 @@ export default async function Home() {
       {/* Hero */}
       <section className="text-center max-w-2xl mx-auto mb-12">
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-          Welcome to RevoShop
+          Welcome to RevoPack
         </h1>
         <p className="text-lg text-slate-600 mb-8">
           Quality bags for every journey. Browse our collection.
