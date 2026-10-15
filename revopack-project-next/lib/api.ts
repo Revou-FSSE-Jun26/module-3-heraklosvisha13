@@ -2,6 +2,7 @@ import type {
   Product,
   Category,
   Order,
+  User,
   ApiResponse,
 } from "./types";
 
@@ -71,4 +72,53 @@ export async function getOrders(): Promise<Order[]> {
 
 export async function getOrder(id: number): Promise<Order> {
   return apiFetch<Order>(`/orders/${id}`);
+}
+
+/* ========================================================
+   LOGIN/AUTH
+   ========================================================= */
+export async function login(
+  email: string,
+  password: string
+): Promise<{ token: string; user: User }> {
+  const res = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type" : "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    throw new Error(json.message ?? "Login failed");
+  }
+
+  return {
+    token: json.data.token,
+    user: json.data.user,
+  };
+}
+
+export async function register (
+  username: string,
+  email: string,
+  password: string
+): Promise<User> {
+  const res = await fetch(`${API_URL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, email, password }),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    throw new Error(json.message ?? "Registration failed");
+  }
+
+  return json.data.user;
 }

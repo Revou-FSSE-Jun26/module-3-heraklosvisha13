@@ -35,13 +35,10 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  role: "admin" | "customer";
+  created_at?: string;
 }
 
-/* =========================================================
-   API RESPONSE WRAPPER
-   
-   API kamu bungkus response dalam { data, status }
-   ========================================================= */
 export interface ApiResponse<T> {
   data: T;
   status: "success" | "error";
