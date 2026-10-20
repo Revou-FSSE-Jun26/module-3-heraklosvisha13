@@ -6,6 +6,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "react-hot-toast"
 
 export const metadata: Metadata = {
   title: "RevoPack — Quality Bags for Every Journey",
@@ -21,11 +23,15 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
         <AuthProvider>
-          <Suspense fallback={<div className="h-16 bg-white border-b" />}>
-            <Header />
-          </Suspense>
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <CartProvider>
+            <Suspense fallback={<div className="h-16 bg-white border-b" />}>
+              <Header />
+            </Suspense>
+            <main className="flex-1">{children}</main>
+            <Footer />
+
+            <Toaster position= "bottom-right" />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

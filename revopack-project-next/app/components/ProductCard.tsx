@@ -4,11 +4,11 @@ import { useState } from "react";
 import Card from "./Card";
 import type { Product } from "@/lib/types";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 export interface ProductCardProps {
   product: Product;
   categoryName?: string;
-  onAddToCart?: (product: Product, qty: number) => void;
   showCounter?: boolean;
 }
 
@@ -29,9 +29,9 @@ export function getButtonClasses(inStock: boolean): string {
 export default function ProductCard({
   product,
   categoryName,
-  onAddToCart,
   showCounter = true,
 }: ProductCardProps) {
+  const { addToCart } = useCart();
   const [qty, setQty] = useState(1);
   const inStock = product.stock > 0;
 
@@ -42,8 +42,8 @@ export default function ProductCard({
   }).format(product.price);
 
   function handleAddToCart() {
-    if (!inStock || !onAddToCart) return;
-    onAddToCart(product, qty);
+    if (!inStock) return;
+    addToCart(product, qty);
   }
 
   return (

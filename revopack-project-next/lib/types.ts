@@ -44,3 +44,7 @@ export interface ApiResponse<T> {
   status: "success" | "error";
   message?: string;
 }
+
+export interface CartItem extends Product {
+  quantity: number;
+}

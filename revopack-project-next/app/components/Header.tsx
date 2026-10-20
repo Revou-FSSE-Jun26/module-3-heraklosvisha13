@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { currentUser, isLoggedIn, logout } = useAuth();
+  const { totalItems } = useCart();
 
   const navLinks = [
     { href: "/", label: "HOME" },
@@ -75,7 +77,7 @@ export default function Header() {
                                bg-red-500 text-white text-[0.7rem] font-bold
                                rounded-full flex items-center justify-center
                                leading-none">
-                0
+                {totalItems}
               </span>
             </Link>
 
