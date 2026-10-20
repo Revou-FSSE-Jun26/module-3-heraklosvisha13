@@ -12,15 +12,14 @@ function handleUnauthorized() {
   if (typeof window !== "undefined") {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/login";
-  }
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 100);
+    }
 }
 
 /* =========================================================
    GENERIC FETCH HELPER
-   
-   Karena API bungkus response dalam { data, status },
-   apiFetch perlu buka wrapper dan return `data` saja.
    ========================================================= */
 export async function apiFetch<T>(path: string): Promise<T> {
   if (!API_URL) {
@@ -35,7 +34,10 @@ export async function apiFetch<T>(path: string): Promise<T> {
   });
 
   if (!res.ok) {
-    if (res.status === 401) handleUnauthorized();
+    if (res.status === 401) {
+      handleUnauthorized();
+      throw new Error("Unauthorized");
+    }
     throw new Error(`API error: ${res.status} ${res.statusText}`);
   }
 
@@ -87,7 +89,10 @@ export async function getOrders(): Promise<Order[]> {
   });
 
   if (!res.ok) {
-    if (res.status === 401) handleUnauthorized();
+    if (res.status === 401) {
+      handleUnauthorized();
+      return [];
+    }
     throw new Error(`API error: ${res.status}`);
   }
 
@@ -199,7 +204,10 @@ async function adminFetch<T>(
   const json = await res.json();
 
   if (!res.ok) {
-    if (res.status === 401) handleUnauthorized();
+    if (res.status === 401) {
+      handleUnauthorized();
+      throw new Error("Unauthorized");
+    }
     const errorMsg = json.message || json.error || "Something went wrong";
     throw new Error(typeof errorMsg === "string" ? errorMsg : JSON.stringify(errorMsg));
   }
