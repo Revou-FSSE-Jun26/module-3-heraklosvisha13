@@ -6,11 +6,11 @@
       "localStorage": [
         {
           "name": "user",
-          "value": "{\"created_at\":\"Thu, 22 Oct 2026 15:08:37 GMT\",\"email\":\"testuser_1792681716360@example.com\",\"id\":13,\"role\":\"customer\",\"username\":\"testuser_1792681716360\"}"
+          "value": "{\"created_at\":\"Thu, 22 Oct 2026 15:57:56 GMT\",\"email\":\"testuser_1792684675623@example.com\",\"id\":17,\"role\":\"customer\",\"username\":\"testuser_1792684675623\"}"
         },
         {
           "name": "token",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MjY4MTcxNywianRpIjoiMzE0OWI3MWYtOTJlNS00YzdiLTgzNzAtZDg2MTY0YWFkZTEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzkyNjgxNzE3LCJjc3JmIjoiM2UwNjcxZGEtYmJhMy00NzAwLWE5ZmEtYmFmMTNhNjM1Mjk3IiwiZXhwIjoxNzkyNjg1MzE3fQ._ilH8YnLmPGNI_M4TKTtKls7qUAgi8MLWwW1ArMcPSM"
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MjY4NDY3NywianRpIjoiYTRhY2JiMzMtMDE2Yy00OGY0LWIzZWUtMzA3NjUxN2JkYjE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjE3IiwibmJmIjoxNzkyNjg0Njc3LCJjc3JmIjoiZDdhYmQ4MjItYWYwYi00NDE1LWJiNDYtZDNjMTlkOTI2YzgwIiwiZXhwIjoxNzkyNjg4Mjc3fQ.WHd4aUqErBqdRZ1j8s_pXhKEqVGQF509pFFx3f-kbmU"
         },
         {
           "name": "cart",

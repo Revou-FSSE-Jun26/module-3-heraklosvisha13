@@ -36,6 +36,15 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
+### Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+### Saved auth session for e2e tests (contains tokens)
+user.json
+
 ### macOS
 .DS_Store
 .AppleDouble
