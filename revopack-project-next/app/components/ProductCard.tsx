@@ -5,6 +5,10 @@ import Card from "./Card";
 import type { Product } from "@/lib/types";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import toast from "react-hot-toast"; // Opsional, untuk notifikasi
+
 
 export interface ProductCardProps {
   product: Product;
@@ -32,6 +36,8 @@ export default function ProductCard({
   showCounter = true,
 }: ProductCardProps) {
   const { addToCart } = useCart();
+  const router = useRouter();
+  const { isLoggedIn } = useAuth(); 
   const [qty, setQty] = useState(1);
   const inStock = product.stock > 0;
 
@@ -43,7 +49,13 @@ export default function ProductCard({
 
   function handleAddToCart() {
     if (!inStock) return;
+    if (!isLoggedIn) {
+      toast.error("Please login to add items to cart");
+      router.push("/login");
+      return;
+    }
     addToCart(product, qty);
+    toast.success("added to cart succesfully");
   }
 
   return (
