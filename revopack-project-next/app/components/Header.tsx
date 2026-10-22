@@ -51,6 +51,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  data-testid={`nav-${link.label.toLowerCase()}`}
                   className={
                     active
                       ? "px-4 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-semibold"
@@ -69,6 +70,7 @@ export default function Header() {
             <Link
               href="/cart"
               aria-label="Cart"
+              data-testid="cart-icon"
               className="relative w-10 h-10 rounded-lg hover:bg-slate-100
                          flex items-center justify-center transition text-lg"
             >
@@ -175,6 +177,7 @@ export default function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
+                      data-testid={`nav-mobile-${link.label.toLowerCase()}`}
                       className={
                         active
                           ? "block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-600 font-semibold"

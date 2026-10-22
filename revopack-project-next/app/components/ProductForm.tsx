@@ -64,6 +64,7 @@ export default function ProductForm({ initialData, onSuccess, onCancel }: Produc
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
+          data-testid="product-name-input"
           className="w-full border rounded-lg px-3 py-2 text-sm"
         />
       </div>
@@ -73,6 +74,7 @@ export default function ProductForm({ initialData, onSuccess, onCancel }: Produc
         <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
+          data-testid="product-category-select"
           className="w-full border rounded-lg px-3 py-2 text-sm"
         >
           <option value="">Select category...</option>

@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "user",
+          "value": "{\"created_at\":\"Thu, 22 Oct 2026 15:08:37 GMT\",\"email\":\"testuser_1792681716360@example.com\",\"id\":13,\"role\":\"customer\",\"username\":\"testuser_1792681716360\"}"
+        },
+        {
+          "name": "token",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc5MjY4MTcxNywianRpIjoiMzE0OWI3MWYtOTJlNS00YzdiLTgzNzAtZDg2MTY0YWFkZTEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzkyNjgxNzE3LCJjc3JmIjoiM2UwNjcxZGEtYmJhMy00NzAwLWE5ZmEtYmFmMTNhNjM1Mjk3IiwiZXhwIjoxNzkyNjg1MzE3fQ._ilH8YnLmPGNI_M4TKTtKls7qUAgi8MLWwW1ArMcPSM"
+        },
+        {
+          "name": "cart",
+          "value": "[]"
+        }
+      ]
+    }
+  ]
+}
